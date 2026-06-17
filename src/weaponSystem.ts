@@ -212,21 +212,27 @@ export class WeaponSystem {
   ): void {
     const range = config.range || 300;
     const chainCount = config.chainCount || 3;
+    const jumpRange = config.jumpRange || range;
 
-    let availableEnemies = enemies.filter((e) => !e.dead);
+    const availableEnemies = enemies.filter((e) => !e.dead);
     if (availableEnemies.length === 0) return;
 
     const points: { x: number; y: number }[] = [{ x: player.x, y: player.y }];
     const hitEnemies: Set<number> = new Set();
+    let currentX = player.x;
+    let currentY = player.y;
 
     for (let i = 0; i < chainCount; i++) {
+      const maxRange = i === 0 ? range : jumpRange;
+      const maxRangeSq = maxRange * maxRange;
+
       let nearestEnemy: Enemy | null = null;
       let nearestDistSq = Infinity;
 
       for (const enemy of availableEnemies) {
         if (hitEnemies.has(enemy.id)) continue;
-        const distSq = distanceSq(player.x, player.y, enemy.x, enemy.y);
-        if (distSq < nearestDistSq && distSq < range * range) {
+        const distSq = distanceSq(currentX, currentY, enemy.x, enemy.y);
+        if (distSq < nearestDistSq && distSq < maxRangeSq) {
           nearestDistSq = distSq;
           nearestEnemy = enemy;
         }
@@ -237,6 +243,8 @@ export class WeaponSystem {
       points.push({ x: nearestEnemy.x, y: nearestEnemy.y });
       nearestEnemy.health -= damage;
       hitEnemies.add(nearestEnemy.id);
+      currentX = nearestEnemy.x;
+      currentY = nearestEnemy.y;
     }
 
     if (points.length > 1) {
