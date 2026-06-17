@@ -68,7 +68,7 @@ export class UpgradeSystem {
             (w) => w.configId === ingredient.id,
           );
           const config = weapons[ingredient.id];
-          if (!weapon || weapon.level <= config.maxLevel) {
+          if (!weapon || weapon.level < config.maxLevel) {
             allMaxed = false;
             break;
           }

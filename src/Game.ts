@@ -311,7 +311,7 @@ export class Game {
       const sortedEnemies = [...this.enemies].sort((a, b) => {
         const distA = (a.x - this.player.x) ** 2 + (a.y - this.player.y) ** 2;
         const distB = (b.x - this.player.x) ** 2 + (b.y - this.player.y) ** 2;
-        return distA - distB;
+        return distB - distA;
       });
 
       const toRemove = sortedEnemies.slice(0, totalEntities - this.maxEntities);

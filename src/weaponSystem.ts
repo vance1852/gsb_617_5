@@ -110,7 +110,7 @@ export class WeaponSystem {
     dt: number,
   ): void {
     const config = weapon.currentStats;
-    const cooldownMultiplier = 1 + player.cooldownReduction;
+    const cooldownMultiplier = 1 - player.cooldownReduction;
     const effectiveCooldown = config.cooldown * cooldownMultiplier;
 
     weapon.cooldownTimer -= dt;
@@ -212,25 +212,21 @@ export class WeaponSystem {
   ): void {
     const range = config.range || 300;
     const chainCount = config.chainCount || 3;
-    const jumpRange = config.jumpRange || 150;
 
     let availableEnemies = enemies.filter((e) => !e.dead);
     if (availableEnemies.length === 0) return;
 
     const points: { x: number; y: number }[] = [{ x: player.x, y: player.y }];
     const hitEnemies: Set<number> = new Set();
-    let currentX = player.x;
-    let currentY = player.y;
 
     for (let i = 0; i < chainCount; i++) {
       let nearestEnemy: Enemy | null = null;
       let nearestDistSq = Infinity;
-      const searchRange = i === 0 ? range : jumpRange;
 
       for (const enemy of availableEnemies) {
         if (hitEnemies.has(enemy.id)) continue;
-        const distSq = distanceSq(currentX, currentY, enemy.x, enemy.y);
-        if (distSq < nearestDistSq && distSq < searchRange * searchRange) {
+        const distSq = distanceSq(player.x, player.y, enemy.x, enemy.y);
+        if (distSq < nearestDistSq && distSq < range * range) {
           nearestDistSq = distSq;
           nearestEnemy = enemy;
         }
@@ -241,8 +237,6 @@ export class WeaponSystem {
       points.push({ x: nearestEnemy.x, y: nearestEnemy.y });
       nearestEnemy.health -= damage;
       hitEnemies.add(nearestEnemy.id);
-      currentX = nearestEnemy.x;
-      currentY = nearestEnemy.y;
     }
 
     if (points.length > 1) {

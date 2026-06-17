@@ -109,19 +109,15 @@ export class EnemySystem {
     if (enemy.type === "dasher" && enemy.dashCooldownTimer !== undefined) {
       enemy.dashCooldownTimer -= dt;
 
-      if (enemy.isDashing && enemy.dashTimer !== undefined) {
-        enemy.dashTimer -= dt;
-        speed = enemies.dasher.dashSpeed || 200;
-        if (enemy.dashTimer <= 0) {
-          enemy.isDashing = false;
-          enemy.dashCooldownTimer = enemies.dasher.dashCooldown || 2;
-        }
-      } else if (enemy.dashCooldownTimer <= 0) {
+      if (enemy.dashCooldownTimer <= 0) {
         const dist = distance(enemy.x, enemy.y, playerX, playerY);
         if (dist < 250) {
           enemy.isDashing = true;
-          enemy.dashTimer = enemies.dasher.dashCooldown || 0.5;
         }
+      }
+
+      if (enemy.isDashing) {
+        speed = enemies.dasher.dashSpeed || 200;
       }
     }
 

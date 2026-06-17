@@ -213,29 +213,29 @@ export class CollisionSystem {
     for (const enemy of enemies) {
       if (enemy.dead) continue;
 
-      if (player.invincibleTimer <= 0) {
-        if (
-          circleCollides(
-            player.x,
-            player.y,
-            player.radius,
-            enemy.x,
-            enemy.y,
-            enemy.radius,
-          )
-        ) {
+      if (
+        circleCollides(
+          player.x,
+          player.y,
+          player.radius,
+          enemy.x,
+          enemy.y,
+          enemy.radius,
+        )
+      ) {
+        player.invincibleTimer -= dt;
+        if (player.invincibleTimer <= 0) {
           player.health -= enemy.damage;
-          player.invincibleTimer = 0.8;
-
-          newDamageNumbers.push(
-            createDamageNumber(
-              player.x,
-              player.y - player.radius,
-              enemy.damage,
-              "#ff4444",
-            ),
-          );
         }
+
+        newDamageNumbers.push(
+          createDamageNumber(
+            player.x,
+            player.y - player.radius,
+            enemy.damage,
+            "#ff4444",
+          ),
+        );
       }
     }
 
@@ -253,20 +253,14 @@ export class CollisionSystem {
       const pickupR2 = pickupR * pickupR;
 
       if (distSq < pickupR2) {
-        if (distSq < 900) {
+        const dir = normalize(gem.x - player.x, gem.y - player.y);
+        gem.vx += dir.x * 60;
+        gem.vy += dir.y * 60;
+        if (distSq <= gem.radius * gem.radius) {
           gem.dead = true;
           player.exp += gem.value;
-        } else {
-          const dir = normalize(gem.x - player.x, gem.y - player.y);
-          const pullSpeed = 400;
-          gem.x += dir.x * pullSpeed * dt;
-          gem.y += dir.y * pullSpeed * dt;
         }
       }
-    }
-
-    if (player.invincibleTimer < 0) {
-      player.invincibleTimer -= dt;
     }
 
     return { newDamageNumbers, newExpGems, kills };
