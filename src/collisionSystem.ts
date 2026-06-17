@@ -210,6 +210,8 @@ export class CollisionSystem {
       }
     }
 
+    player.invincibleTimer = Math.max(0, player.invincibleTimer - dt);
+
     for (const enemy of enemies) {
       if (enemy.dead) continue;
 
@@ -223,19 +225,19 @@ export class CollisionSystem {
           enemy.radius,
         )
       ) {
-        player.invincibleTimer -= dt;
         if (player.invincibleTimer <= 0) {
           player.health -= enemy.damage;
-        }
+          player.invincibleTimer = 1.0;
 
-        newDamageNumbers.push(
-          createDamageNumber(
-            player.x,
-            player.y - player.radius,
-            enemy.damage,
-            "#ff4444",
-          ),
-        );
+          newDamageNumbers.push(
+            createDamageNumber(
+              player.x,
+              player.y - player.radius,
+              enemy.damage,
+              "#ff4444",
+            ),
+          );
+        }
       }
     }
 
@@ -253,7 +255,7 @@ export class CollisionSystem {
       const pickupR2 = pickupR * pickupR;
 
       if (distSq < pickupR2) {
-        const dir = normalize(gem.x - player.x, gem.y - player.y);
+        const dir = normalize(player.x - gem.x, player.y - gem.y);
         gem.vx += dir.x * 60;
         gem.vy += dir.y * 60;
         if (distSq <= gem.radius * gem.radius) {
