@@ -107,17 +107,23 @@ export class EnemySystem {
     let speed = enemy.speed;
 
     if (enemy.type === "dasher" && enemy.dashCooldownTimer !== undefined) {
-      enemy.dashCooldownTimer -= dt;
-
-      if (enemy.dashCooldownTimer <= 0) {
-        const dist = distance(enemy.x, enemy.y, playerX, playerY);
-        if (dist < 250) {
-          enemy.isDashing = true;
-        }
-      }
-
       if (enemy.isDashing) {
-        speed = enemies.dasher.dashSpeed || 200;
+        enemy.dashTimer = (enemy.dashTimer || 0) - dt;
+        if (enemy.dashTimer <= 0) {
+          enemy.isDashing = false;
+          enemy.dashCooldownTimer = enemies.dasher.dashCooldown || 2;
+        } else {
+          speed = enemies.dasher.dashSpeed || 200;
+        }
+      } else {
+        enemy.dashCooldownTimer -= dt;
+        if (enemy.dashCooldownTimer <= 0) {
+          const dist = distance(enemy.x, enemy.y, playerX, playerY);
+          if (dist < 250) {
+            enemy.isDashing = true;
+            enemy.dashTimer = enemies.dasher.dashDuration || 0.5;
+          }
+        }
       }
     }
 
