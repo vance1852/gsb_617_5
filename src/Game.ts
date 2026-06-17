@@ -132,6 +132,13 @@ export class Game {
       this.player.maxHealth,
     );
 
+    if (this.player.invincibleTimer > 0) {
+      this.player.invincibleTimer = Math.max(
+        0,
+        this.player.invincibleTimer - dt,
+      );
+    }
+
     if (this.player.health <= 0) {
       this.gameState.gameOver = true;
       return;
