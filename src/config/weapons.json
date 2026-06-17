@@ -1,0 +1,150 @@
+{
+  "basicGun": {
+    "id": "basicGun",
+    "name": "基础枪",
+    "description": "向最近的敌人发射子弹",
+    "type": "gun",
+    "damage": 10,
+    "cooldown": 0.5,
+    "bulletSpeed": 400,
+    "pierce": 1,
+    "range": 400,
+    "maxLevel": 8,
+    "evolvesWith": "ringShot",
+    "upgrades": [
+      { "level": 2, "damage": 15, "cooldown": 0.45 },
+      { "level": 3, "damage": 20, "pierce": 2 },
+      { "level": 4, "damage": 25, "cooldown": 0.4 },
+      { "level": 5, "damage": 30, "pierce": 3 },
+      { "level": 6, "damage": 40, "cooldown": 0.35 },
+      { "level": 7, "damage": 50, "pierce": 4 },
+      { "level": 8, "damage": 70, "cooldown": 0.3 }
+    ]
+  },
+  "ringShot": {
+    "id": "ringShot",
+    "name": "环形弹幕",
+    "description": "向八个方向发射子弹",
+    "type": "ring",
+    "damage": 8,
+    "cooldown": 1.2,
+    "bulletSpeed": 300,
+    "pierce": 2,
+    "range": 350,
+    "directions": 8,
+    "maxLevel": 8,
+    "evolvesWith": "basicGun",
+    "upgrades": [
+      { "level": 2, "damage": 12, "cooldown": 1.1 },
+      { "level": 3, "damage": 16, "directions": 12 },
+      { "level": 4, "damage": 20, "cooldown": 1.0 },
+      { "level": 5, "damage": 28, "pierce": 3 },
+      { "level": 6, "damage": 36, "directions": 16, "cooldown": 0.9 },
+      { "level": 7, "damage": 48, "pierce": 4 },
+      { "level": 8, "damage": 64, "cooldown": 0.8 }
+    ]
+  },
+  "orbitingBall": {
+    "id": "orbitingBall",
+    "name": "轨道球",
+    "description": "围绕角色旋转的伤害球体",
+    "type": "orb",
+    "damage": 15,
+    "cooldown": 0.2,
+    "orbCount": 1,
+    "orbRadius": 80,
+    "orbSpeed": 3,
+    "maxLevel": 8,
+    "evolvesWith": "spike",
+    "upgrades": [
+      { "level": 2, "damage": 22, "orbCount": 2 },
+      { "level": 3, "damage": 30, "orbRadius": 100 },
+      { "level": 4, "damage": 40, "orbSpeed": 4 },
+      { "level": 5, "damage": 55, "orbCount": 3 },
+      { "level": 6, "damage": 70, "orbRadius": 120 },
+      { "level": 7, "damage": 90, "orbCount": 4 },
+      { "level": 8, "damage": 120, "orbSpeed": 5 }
+    ]
+  },
+  "lightningChain": {
+    "id": "lightningChain",
+    "name": "闪电链",
+    "description": "跳跃攻击多个敌人",
+    "type": "lightning",
+    "damage": 25,
+    "cooldown": 2.0,
+    "chainCount": 3,
+    "range": 300,
+    "jumpRange": 150,
+    "maxLevel": 8,
+    "evolvesWith": "passive_damageBonus",
+    "upgrades": [
+      { "level": 2, "damage": 35, "cooldown": 1.8 },
+      { "level": 3, "damage": 45, "chainCount": 4 },
+      { "level": 4, "damage": 55, "cooldown": 1.6 },
+      { "level": 5, "damage": 70, "chainCount": 5 },
+      { "level": 6, "damage": 90, "cooldown": 1.4 },
+      { "level": 7, "damage": 115, "chainCount": 6 },
+      { "level": 8, "damage": 150, "cooldown": 1.2 }
+    ]
+  },
+  "spike": {
+    "id": "spike",
+    "name": "地刺",
+    "description": "脚下产生范围伤害",
+    "type": "spike",
+    "damage": 30,
+    "cooldown": 3.0,
+    "radius": 100,
+    "maxLevel": 8,
+    "evolvesWith": "orbitingBall",
+    "upgrades": [
+      { "level": 2, "damage": 45, "cooldown": 2.8 },
+      { "level": 3, "damage": 60, "radius": 130 },
+      { "level": 4, "damage": 80, "cooldown": 2.5 },
+      { "level": 5, "damage": 105, "radius": 160 },
+      { "level": 6, "damage": 135, "cooldown": 2.2 },
+      { "level": 7, "damage": 170, "radius": 190 },
+      { "level": 8, "damage": 220, "cooldown": 2.0 }
+    ]
+  },
+  "bulletStorm": {
+    "id": "bulletStorm",
+    "name": "全屏弹幕风暴",
+    "description": "每秒向全方向发射大量子弹，覆盖整个屏幕",
+    "type": "storm",
+    "damage": 25,
+    "cooldown": 0.15,
+    "bulletSpeed": 500,
+    "pierce": 3,
+    "range": 600,
+    "directions": 24,
+    "maxLevel": 1,
+    "isEvolution": true
+  },
+  "gravityCollapse": {
+    "id": "gravityCollapse",
+    "name": "引力坍缩",
+    "description": "周期性把附近敌人吸到角色身边并造成范围爆炸伤害",
+    "type": "gravity",
+    "damage": 80,
+    "cooldown": 2.5,
+    "pullRadius": 250,
+    "explosionRadius": 150,
+    "pullForce": 400,
+    "maxLevel": 1,
+    "isEvolution": true
+  },
+  "thunderstorm": {
+    "id": "thunderstorm",
+    "name": "雷暴领域",
+    "description": "角色周围持续释放随机闪电，覆盖范围极大",
+    "type": "thunderstorm",
+    "damage": 45,
+    "cooldown": 0.3,
+    "range": 500,
+    "lightningCount": 3,
+    "maxLevel": 1,
+    "isEvolution": true
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "passives": [
+    {
+      "id": "moveSpeed",
+      "name": "移速提升",
+      "description": "移动速度 +15%",
+      "type": "passive",
+      "effect": "moveSpeed",
+      "value": 0.15,
+      "maxLevel": 5
+    },
+    {
+      "id": "maxHealth",
+      "name": "生命上限",
+      "description": "最大生命值 +25",
+      "type": "passive",
+      "effect": "maxHealth",
+      "value": 25,
+      "maxLevel": 5
+    },
+    {
+      "id": "pickupRange",
+      "name": "吸取范围",
+      "description": "经验吸取范围 +30",
+      "type": "passive",
+      "effect": "pickupRange",
+      "value": 30,
+      "maxLevel": 5
+    },
+    {
+      "id": "healRate",
+      "name": "自然回血",
+      "description": "每秒回复生命值 +1",
+      "type": "passive",
+      "effect": "healRate",
+      "value": 1,
+      "maxLevel": 5
+    },
+    {
+      "id": "damageBonus",
+      "name": "伤害加成",
+      "description": "所有武器伤害 +10%",
+      "type": "passive",
+      "effect": "damageBonus",
+      "value": 0.1,
+      "maxLevel": 5
+    },
+    {
+      "id": "cooldownReduction",
+      "name": "冷却缩减",
+      "description": "所有武器冷却 -8%",
+      "type": "passive",
+      "effect": "cooldownReduction",
+      "value": 0.08,
+      "maxLevel": 5
+    }
+  ],
+  "weapons": ["basicGun", "ringShot", "orbitingBall", "lightningChain", "spike"]
+}
